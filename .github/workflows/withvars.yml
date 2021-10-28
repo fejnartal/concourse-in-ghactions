@@ -29,7 +29,7 @@ name: helloworld-withvars
 on: workflow_dispatch
 
 jobs:
-  ((first))-job:
+  first-job:
     runs-on: ubuntu-latest
     env:
       hello: HAL1
@@ -39,7 +39,7 @@ jobs:
       with:
         entrypoint: /bin/echo
         args: Hello, ${{env.hello}}!
-  level-((number))-job:
+  level-number-job:
     runs-on: ubuntu-latest
     env:
       hello: HAL2
