@@ -1,12 +1,38 @@
+#---
+#resources:
+#- name: every-30s
+#  type: time
+#  icon: clock-outline
+#  source:
+#    interval: 30s
+
+#jobs:
+#- name: job
+#  public: true
+#  plan:
+#  - get: every-30s
+#    trigger: true
+#  - task: simple-task
+#    config:
+#      platform: linux
+#      image_resource:
+#        type: registry-image
+#        source: { repository: busybox }
+#      run:
+#        path: echo
+#        args: ["Hello, world!"]
+
 name: time-triggered
-on: workflow_dispatch
+on:
+  schedule:
+    - cron:  '0 * * * *' # Run every hour
 
 jobs:
   placeholder:
     runs-on: ubuntu-latest
     steps:
-      - name: placeholder
+      - name: simple-task
         uses: docker://busybox:latest
         with:
           entrypoint: /bin/echo
-          args: placeholder
+          args: Hello, world!
