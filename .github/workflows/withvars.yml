@@ -25,7 +25,7 @@
 #        path: echo
 #        args: ["Hello, ((hello))!"]
 
-name: helloworld
+name: helloworld-withvars
 on: workflow_dispatch
 
 jobs:
@@ -35,17 +35,15 @@ jobs:
       hello: HAL1
     steps:
     - name: simple-task
-      uses: docker://busybox:latest
-      with:
-        entrypoint: /bin/echo
-        args: Hello, ${{hello}}!
+      uses: busybox
+      run: |
+        echo "Hello, ${{hello}}!"
   level-((number))-job:
     runs-on: ubuntu-latest
     env:
       hello: HAL2
     steps:
     - name: simple-task
-      uses: docker://busybox:latest
-      with:
-        entrypoint: /bin/echo
-        args: Hello, ${{hello}}!
+      uses: busybox
+      run: |
+        echo "Hello, ${{hello}}!"
