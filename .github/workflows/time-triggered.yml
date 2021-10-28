@@ -1,0 +1,12 @@
+name: time-triggered
+on: workflow_dispatch
+
+jobs:
+  placeholder:
+    runs-on: ubuntu-latest
+    steps:
+      - name: placeholder
+        uses: docker://busybox:latest
+        with:
+          entrypoint: /bin/echo
+          args: placeholder
