@@ -1,0 +1,17 @@
+# Credits to snavarropino/enhance-pipelines-containers
+name: 02-Redis container example
+on: workflow_dispatch
+
+jobs:
+  runner-job:
+    runs-on: ubuntu-latest
+    services:
+      redis:
+        image: redis
+        ports:
+          - 6379:6379
+    steps:
+      - name: Connect to Redis
+        run: |
+          sudo apt-get install redis-tools
+          redis-cli ping
