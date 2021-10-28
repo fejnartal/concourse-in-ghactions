@@ -18,8 +18,10 @@ on: workflow_dispatch
 
 jobs:
   job:
-    runs-on: busybox
+    runs-on: ubuntu-latest
     steps:
     - name: simple-task
-      run: |
-        echo "Hello world!"
+      uses: docker://busybox:latest
+      with:
+        entrypoint: /bin/echo
+        args: Hello world!
