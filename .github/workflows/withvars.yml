@@ -35,15 +35,17 @@ jobs:
       hello: HAL1
     steps:
     - name: simple-task
-      uses: busybox
-      run: |
-        echo "Hello, ${{hello}}!"
+      uses: docker://busybox:latest
+      with:
+        entrypoint: /bin/echo
+        args: Hello, ${{hello}}!
   level-((number))-job:
     runs-on: ubuntu-latest
     env:
       hello: HAL2
     steps:
     - name: simple-task
-      uses: busybox
-      run: |
-        echo "Hello, ${{hello}}!"
+      uses: docker://busybox:latest
+      with:
+        entrypoint: /bin/echo
+        args: Hello, ${{hello}}!
