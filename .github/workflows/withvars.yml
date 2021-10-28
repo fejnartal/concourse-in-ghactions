@@ -38,7 +38,7 @@ jobs:
       uses: docker://busybox:latest
       with:
         entrypoint: /bin/echo
-        args: Hello, ${{hello}}!
+        args: Hello, ${{env.hello}}!
   level-((number))-job:
     runs-on: ubuntu-latest
     env:
@@ -48,4 +48,4 @@ jobs:
       uses: docker://busybox:latest
       with:
         entrypoint: /bin/echo
-        args: Hello, ${{hello}}!
+        args: Hello, ${{env.hello}}!
