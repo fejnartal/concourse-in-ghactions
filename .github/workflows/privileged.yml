@@ -19,9 +19,8 @@ jobs:
             sleep 5
           done
           sudo chmod +x /usr/local/bin/fly
-      - name: ls-files
-        run: ls -al /usr/local/bin/fly && pwd
-      - name: fly-login
-        run: /usr/local/bin/fly --verbose -t concourse login -c http://localhost:8080 -u test -p test
-      - name: fly-execute
-        run: /usr/local/bin/fly --verbose -t concourse execute -c ${{ github.workspace }}/.concourse/helloworld.yml
+
+          fly --verbose -t concourse login -c http://localhost:8080 -u test -p test
+          fly --verbose -t concourse execute -c ${{ github.workspace }}/.concourse/helloworld.yml > log.txt
+      - name: echo-log
+        run: cat log.txt
