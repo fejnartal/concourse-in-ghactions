@@ -9,6 +9,8 @@ jobs:
       concourse:
         image: cryogenics/concourse-ghactions
         options: --privileged
+        ports:
+          - 8080/tcp
         env:
           CONCOURSE_POSTGRES_HOST: postgres
           CONCOURSE_POSTGRES_USER: concourse_user
@@ -19,6 +21,8 @@ jobs:
 
       postgres:
         image: postgres
+        ports:
+        - 5432/tcp
         env:
           POSTGRES_USER: concourse_user
           POSTGRES_PASSWORD: concourse_pass
