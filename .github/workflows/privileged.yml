@@ -5,10 +5,19 @@ jobs:
   privileged:
     runs-on: ubuntu-latest
     container:
-      image: concourse/concourse
-      options: --privileged
 
     services:
+      concourse:
+        image: concourse/concourse
+        options: --privileged --entrypoint "/usr/local/concourse/bin/concourse quickstart"
+        env:
+          CONCOURSE_POSTGRES_HOST: postgres
+          CONCOURSE_POSTGRES_USER: concourse_user
+          CONCOURSE_POSTGRES_PASSWORD: concourse_pass
+          CONCOURSE_POSTGRES_DATABASE: concourse
+          CONCOURSE_ADD_LOCAL_USER: test:test
+          CONCOURSE_MAIN_TEAM_LOCAL_USER: test
+
       postgres:
         image: postgres
         env:
@@ -17,14 +26,11 @@ jobs:
           POSTGRES_DB: concourse
 
     steps:
-      - name: simple-task
-        env:
-          CONCOURSE_POSTGRES_HOST: postgres
-          CONCOURSE_POSTGRES_USER: concourse_user
-          CONCOURSE_POSTGRES_PASSWORD: concourse_pass
-          CONCOURSE_POSTGRES_DATABASE: concourse
-          CONCOURSE_ADD_LOCAL_USER: test:test
-          CONCOURSE_MAIN_TEAM_LOCAL_USER: test
+      - name: download-fly
+        uses: ubuntu:latest
         run: |
-          echo "Hello, world!"
-          /usr/local/concourse/bin/concourse quickstart
+          apt-get update
+          apt-get install -y --no-install-recommends curl ca-certificates
+          curl -o /usr/local/bin/fly -L http://concourse/api/v1/cli?arch=amd64&platform=linux
+          chmod +x /usr/local/bin/fly
+          fly --version
