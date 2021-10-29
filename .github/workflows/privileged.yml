@@ -10,6 +10,6 @@ jobs:
 
     steps:
       - name: simple-task
-        with:
-          entrypoint: /bin/echo
-          args: Hello, world!
+        run: |
+          echo "Hello, world!"
+          concourse
