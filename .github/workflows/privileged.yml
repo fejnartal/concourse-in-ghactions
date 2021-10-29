@@ -8,7 +8,7 @@ jobs:
     services:
       concourse:
         image: concourse/concourse
-        options: --privileged --entrypoint "/usr/local/concourse/bin/concourse quickstart"
+        options: --privileged --entrypoint "/usr/local/concourse/bin/concourse" -c "quickstart"
         env:
           CONCOURSE_POSTGRES_HOST: postgres
           CONCOURSE_POSTGRES_USER: concourse_user
