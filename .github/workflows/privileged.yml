@@ -8,7 +8,7 @@ jobs:
     steps:
       - name: download-fly
         run: |
-          curl-o /tmp/docker-compose.yml -L https://concourse-ci.org/docker-compose.yml
+          curl -o /tmp/docker-compose.yml -L https://concourse-ci.org/docker-compose.yml
           docker-compose -f "/tmp/docker-compose.yml" up -d --build
           sudo curl \
               --connect-timeout 30 \
