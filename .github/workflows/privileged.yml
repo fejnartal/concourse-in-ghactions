@@ -8,8 +8,23 @@ jobs:
       image: concourse/concourse
       options: --privileged
 
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_USER: concourse_user
+          POSTGRES_PASSWORD: concourse_pass
+          POSTGRES_DB: concourse
+
     steps:
       - name: simple-task
+        env:
+          CONCOURSE_POSTGRES_HOST: postgres
+          CONCOURSE_POSTGRES_USER: concourse_user
+          CONCOURSE_POSTGRES_PASSWORD: concourse_pass
+          CONCOURSE_POSTGRES_DATABASE: concourse
+          CONCOURSE_ADD_LOCAL_USER: test:test
+          CONCOURSE_MAIN_TEAM_LOCAL_USER: test
         run: |
           echo "Hello, world!"
-          concourse
+          /usr/local/concourse/bin/concourse quickstart
