@@ -9,17 +9,21 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v2
 
-      - name: download-fly
+      - name: run-docker-compose
         run: |
           curl -o /tmp/docker-compose.yml -L https://concourse-ci.org/docker-compose.yml
           docker-compose -f "/tmp/docker-compose.yml" up -d --build
-
+      - name: download-fly
+        run: |
           while [ ! -f /usr/local/bin/fly ]
           do
             sudo curl --silent -o /usr/local/bin/fly -L http://localhost:8080/api/v1/cli?arch=amd64&platform=linux
             sleep 5
           done
           sudo chmod +x /usr/local/bin/fly
-
-          fly -t concourse login -c http://localhost:8080 -u test -p test
-          fly -t concourse execute -c ${{ github.workspace }}/.concourse/helloworld.yml
+      - name: fly-login
+        run: |
+          fly --verbose -t concourse login -c http://localhost:8080 -u test -p test
+      - name: fly-execute
+        run: |
+          fly --verbose -t concourse execute -c ${{ github.workspace }}/.concourse/helloworld.yml
