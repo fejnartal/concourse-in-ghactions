@@ -22,4 +22,4 @@ jobs:
           sudo chmod +x /usr/local/bin/fly
 
           fly -t concourse login -c http://localhost:8080 -u test -p test
-          fly -t concourse execute -c ${{ GITHUB_WORKSPACE }}/.concourse/helloworld.yml
+          fly -t concourse execute -c ${{ github.workspace }}/.concourse/helloworld.yml
