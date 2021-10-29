@@ -27,8 +27,8 @@ jobs:
     steps:
       - name: download-fly
         run: |
-          apt-get update
-          apt-get install -y --no-install-recommends curl ca-certificates
-          curl -o /usr/local/bin/fly -L http://concourse/api/v1/cli?arch=amd64&platform=linux
-          chmod +x /usr/local/bin/fly
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends curl ca-certificates
+          sudo curl -o /usr/local/bin/fly -L http://concourse/api/v1/cli?arch=amd64&platform=linux
+          sudo chmod +x /usr/local/bin/fly
           fly --version
