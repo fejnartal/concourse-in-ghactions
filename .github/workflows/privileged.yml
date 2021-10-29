@@ -4,7 +4,6 @@ on: workflow_dispatch
 jobs:
   privileged:
     runs-on: ubuntu-latest
-    container:
 
     services:
       concourse:
@@ -27,7 +26,6 @@ jobs:
 
     steps:
       - name: download-fly
-        uses: ubuntu:latest
         run: |
           apt-get update
           apt-get install -y --no-install-recommends curl ca-certificates
